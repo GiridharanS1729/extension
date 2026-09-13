@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "Care Break",
+    "description": "Posture and water reminder to maintain healthy habits",
+    "version": "1.0",
+
+    "action": {
+        "default_popup": "popup/popup.html"
+    },
+
+    "background": {
+        "service_worker": "background.js"
+    },
+
+    "permissions": [
+        "alarms",
+        "notifications",
+        "offscreen",
+        "storage"
+    ],
+
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "audio/posture/*.mp3",
+                "audio/water/*.mp3"
+            ],
+            "matches": [ "<all_urls>" ]
+        }
+    ]
+}

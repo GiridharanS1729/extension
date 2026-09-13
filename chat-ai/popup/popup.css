@@ -1,0 +1,83 @@
+:root {
+  --bg: #0f172a;
+  --card: #020617;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #6366f1;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+body.app {
+  width: 380px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+
+.title {
+  font-weight: 600;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.card {
+  padding: 12px;
+}
+
+label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+textarea {
+  width: 100%;
+  min-height: 80px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: var(--text);
+  resize: vertical;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+select,
+input {
+  flex: 1;
+  padding: 6px;
+  border-radius: 6px;
+  background: #020617;
+  color: var(--text);
+  border: 1px solid #1e293b;
+}
+
+.primary {
+  width: 100%;
+  padding: 8px;
+  background: var(--accent);
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}

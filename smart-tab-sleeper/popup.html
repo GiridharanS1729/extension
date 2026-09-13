@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Tab Sleeper</title>
+  <style>
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      padding: 10px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+      min-width: 500px
+    }
+
+
+    section {
+      border: 1px solid #1f2937;
+      padding: 8px;
+      border-radius: 10px;
+      margin-bottom: 8px
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      gap: 6px;
+      flex-wrap: wrap
+    }
+
+    label {
+      font-size: 12px
+    }
+
+    input,
+    select,
+    textarea {
+      background: #020617;
+      color: #e5e7eb;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      padding: 4px;
+      font-size: 12px;
+      flex: 1
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 50px
+    }
+
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer
+    }
+
+    button.secondary {
+      background: #020617;
+      border: 1px solid #374151
+    }
+
+    #toast {
+      display: none;
+      font-size: 11px;
+      color: #22c55e;
+      margin-bottom: 6px
+    }
+
+    .small {
+      font-size: 11px;
+      color: #9ca3af;
+      white-space: pre-line
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 260px;
+      overflow: auto
+    }
+
+    li {
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      padding: 6px;
+      margin-bottom: 6px
+    }
+
+    .actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+      flex-wrap: wrap
+    }
+
+    .actions button {
+      flex: 1
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="toast">Settings saved</div>
+
+  <section>
+    <div class="row">
+      <label>Enabled</label>
+      <input type="checkbox" id="enabled">
+    </div>
+    <div class="row">
+      <label>Idle (sec)</label>
+      <input type="number" id="idle" value="30">
+    </div>
+    <div class="row">
+      <label>Auto refresh</label>
+      <select id="refresh">
+        <option value="1">1</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="30">30</option>
+        <option value="60">60</option>
+      </select>
+    </div>
+    <div class="row">
+      <label>Whitelist (one per line)</label>
+    </div>
+    <textarea id="whitelist" placeholder="youtube.com&#10;gmail.com"></textarea>
+    <div class="row">
+      <button id="save">Save</button>
+      <button id="manual" class="secondary">Refresh</button>
+    </div>
+  </section>
+
+  <section>
+    <div id="analytics" class="small"></div>
+    <ul id="list"></ul>
+  </section>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

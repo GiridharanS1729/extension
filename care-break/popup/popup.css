@@ -1,0 +1,88 @@
+body {
+    width: 260px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 12px;
+    background: #f9f9f9;
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.toggle {
+    display: flex;
+    width: 255px;
+    margin-bottom: 12px;
+    background: #ddd;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.toggle button {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    background: transparent;
+    font-weight: bold;
+}
+
+.toggle button.active {
+    background: #4CAF50;
+    color: white;
+}
+
+.section {
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.hidden {
+    display: none;
+}
+
+input[type="number"] {
+    width: 100%;
+    margin: 6px 0 10px;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions button {
+    width: 48%;
+    padding: 6px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#startPosture,
+#startWater {
+    background: #2196f3;
+    color: white;
+}
+
+#stopPosture,
+#stopWater {
+    background: #f44336;
+    color: white;
+}
+
+#startPosture:disabled,
+#startWater:disabled {
+    background: #b0b0b0;
+    color: #666;
+    cursor: not-allowed;
+}

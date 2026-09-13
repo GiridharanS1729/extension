@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Notes Panel",
+  "version": "2.0.0",
+  "author": "Giridharan S",
+  "description": "A note-taking side panel with manual save-to-history and a multi-file browser.",
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": ["sidePanel", "storage", "contextMenus"],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Note Bar",
+    "default_icon": {
+      "16": "icon.png",
+      "32": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  }
+}

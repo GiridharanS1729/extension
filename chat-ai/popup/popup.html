@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="popup.css">
+</head>
+
+<body class="app">
+  <header class="topbar">
+    <span class="title">AI Helper</span>
+    <button id="openSettings">⚙</button>
+  </header>
+
+  <div class="card">
+    <label>Input</label>
+    <textarea id="input" placeholder="Paste text here..."></textarea>
+
+    <div class="row">
+      <select id="tone">
+        <option value="neutral">Neutral</option>
+        <option value="formal">Formal</option>
+        <option value="casual">Casual</option>
+        <option value="technical">Technical</option>
+      </select>
+
+      <input id="maxWords" type="number" min="5" max="300" />
+    </div>
+
+    <button id="gen" class="primary">Generate</button>
+
+    <label>Output</label>
+    <textarea id="output" readonly placeholder="Result will appear here"></textarea>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+
+</html>

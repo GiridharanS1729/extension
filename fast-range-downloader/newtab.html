@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fast Downloader</title>
+  <link rel="stylesheet" href="newtab.css">
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">
+        <img src="icon48.png" alt="">
+        <div>
+          <div class="brand-title">Fast Downloader</div>
+          <div class="brand-subtitle">Parallel byte-range downloads</div>
+        </div>
+      </div>
+      <div class="badge">HTTP RANGE</div>
+    </header>
+
+    <section class="card">
+      <h1>Download a file faster</h1>
+      <p class="muted">Paste a direct file URL or use the URL from your current browser tab.</p>
+
+      <div class="url-row">
+        <input id="url" type="url" autofocus
+          placeholder="https://example.com/file.mkv"
+          autocomplete="off" spellcheck="false">
+        <button id="use-tab" class="secondary">Use current tab</button>
+      </div>
+
+      <div class="controls">
+        <div class="control">
+          <label for="threads">Connections</label>
+          <select id="threads">
+            <option>1</option>
+            <option>2</option>
+            <option>4</option>
+            <option selected>8</option>
+            <option>12</option>
+            <option>16</option>
+            <option>24</option>
+            <option>32</option>
+          </select>
+        </div>
+        <button id="download">Start download</button>
+      </div>
+
+      <section id="status" class="status" hidden>
+        <div class="file-line">
+          <span id="filename">Preparing...</span>
+          <span id="percent">0%</span>
+        </div>
+        <div class="progress"><div id="bar"></div></div>
+        <div class="stats">
+          <span id="speed">0 B/s</span>
+          <span id="eta">ETA --</span>
+        </div>
+        <pre id="message"></pre>
+      </section>
+    </section>
+
+    <footer>
+      <span>File-type agnostic</span>
+      <span>•</span>
+      <span>Range support detected automatically</span>
+    </footer>
+  </div>
+
+  <script src="newtab.js"></script>
+</body>
+</html>

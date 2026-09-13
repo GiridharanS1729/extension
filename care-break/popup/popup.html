@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareBreak</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <h2 id="title">CARE BREAK</h2>
+
+    <div class="toggle">
+        <button id="postureBtn" class="active">Posture</button>
+        <button id="waterBtn">Water</button>
+    </div>
+
+    <div id="postureSection" class="section">
+        <label>Posture interval (min)</label>
+        <input type="number" id="postureTime" min="1" max="30" value="10">
+
+        <div class="actions">
+            <button id="startPosture">Start</button>
+            <button id="stopPosture">Stop</button>
+        </div>
+    </div>
+
+    <div id="waterSection" class="section hidden">
+        <label>Water interval (min)</label>
+        <input type="number" id="waterTime" min="1" max="30" value="10">
+
+        <div class="actions">
+            <button id="startWater">Start</button>
+            <button id="stopWater">Stop</button>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

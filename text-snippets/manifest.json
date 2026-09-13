@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "TextSnip – Dynamic Text Snippets",
+  "version": "1.1.0",
+  "description": "Create, manage, and reuse smart text snippets with dynamic placeholders and light/dark themes.",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "action": {
+    "default_title": "TextSnip",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon128.png"
+  }
+}

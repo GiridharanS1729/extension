@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TextSnip</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-left">
+        <h1>TextSnip ✨ </h1>
+        <button id="sortBtn" class="btn-icon" title="Sort Snippets">🔀</button>
+        <button id="settingsBtn" class="btn-icon" title="Settings">⚙️</button>
+        <button id="themeToggleBtn" class="btn-icon" title="Toggle Theme">🌙</button>
+      </div>
+      <button id="addBtn" class="btn-primary">+ New</button>
+    </header>
+
+    <div id="searchContainer" class="search-container">
+      <input type="text" id="searchInput" placeholder="Search snippets..." class="search-input">
+    </div>
+
+    <div id="snippetsList" class="snippets-list"></div>
+
+    <div id="addForm" class="form-container hidden">
+      <h2>✨ Create Snippet</h2>
+      <div class="form-group">
+        <label for="snippetName">Name:</label>
+        <input type="text" id="snippetName" placeholder="Enter snippet name">
+      </div>
+      <div class="form-group">
+        <label for="snippetCategory">Category:</label>
+        <input type="text" id="snippetCategory" placeholder="e.g., Email, Code, Notes">
+      </div>
+      <div class="form-group">
+        <label for="snippetText">Content:</label>
+        <div class="format-toolbar">
+          <button type="button" class="format-btn" data-format="bold" title="Bold (Ctrl+B)">B</button>
+          <button type="button" class="format-btn" data-format="italic" title="Italic (Ctrl+I)">I</button>
+          <button type="button" class="format-btn" data-format="underline" title="Underline (Ctrl+U)">U</button>
+          <button type="button" class="format-btn" data-format="code" title="Code">&lt;/&gt;</button>
+          <button type="button" class="format-btn" data-format="heading" title="Heading">H</button>
+          <div class="toolbar-divider"></div>
+          <button type="button" class="format-btn format-btn-primary" id="placeholderBtn" title="Add Placeholder (Ctrl+P)">${}</button>
+        </div>
+        <textarea id="snippetText" placeholder="Enter text with ${name} placeholders"></textarea>
+        <div class="textarea-hint">💡 Use ${name} syntax for dynamic placeholders</div>
+      </div>
+      <div class="form-actions">
+        <button id="saveBtn" class="btn-primary">💾 Save</button>
+        <button id="cancelBtn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+
+    <div id="editForm" class="form-container hidden">
+      <h2>✏️ Edit Snippet</h2>
+      <div class="form-group">
+        <label for="editSnippetName">Name:</label>
+        <input type="text" id="editSnippetName" placeholder="Enter snippet name">
+      </div>
+      <div class="form-group">
+        <label for="editSnippetCategory">Category:</label>
+        <input type="text" id="editSnippetCategory" placeholder="e.g., Email, Code, Notes">
+      </div>
+      <div class="form-group">
+        <label for="editSnippetText">Content:</label>
+        <div class="format-toolbar">
+          <button type="button" class="format-btn" data-format="bold" data-target="editSnippetText" title="Bold (Ctrl+B)">B</button>
+          <button type="button" class="format-btn" data-format="italic" data-target="editSnippetText" title="Italic (Ctrl+I)">I</button>
+          <button type="button" class="format-btn" data-format="underline" data-target="editSnippetText" title="Underline (Ctrl+U)">U</button>
+          <button type="button" class="format-btn" data-format="code" data-target="editSnippetText" title="Code">&lt;/&gt;</button>
+          <button type="button" class="format-btn" data-format="heading" data-target="editSnippetText" title="Heading">H</button>
+          <div class="toolbar-divider"></div>
+          <button type="button" class="format-btn format-btn-primary" id="editPlaceholderBtn" data-target="editSnippetText" title="Add Placeholder (Ctrl+P)">{}</button>
+        </div>
+        <textarea id="editSnippetText" placeholder="Enter text with ${name} placeholders"></textarea>
+        <div class="textarea-hint">💡 Use ${name} syntax for dynamic placeholders</div>
+      </div>
+      <div class="form-actions">
+        <button id="updateBtn" class="btn-primary">💾 Update</button>
+        <button id="cancelEditBtn" class="btn-secondary">Cancel</button>
+      </div>
+    </div>
+
+    <div id="useForm" class="form-container hidden">
+      <h2 id="useFormTitle">🚀 Use Snippet</h2>
+      <div id="inputFields" class="input-fields"></div>
+      <div class="preview-section">
+        <label>Preview:</label>
+        <div id="preview" class="preview"></div>
+      </div>
+      <div class="form-actions">
+        <button id="copyBtn" class="btn-primary">📋 Copy</button>
+        <button id="closeUseBtn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+
+    <div id="settingsPanel" class="form-container hidden">
+      <h2>⚙️ Features & Tools</h2>
+      
+      <div class="settings-group">
+        <label>📊 Usage Statistics</label>
+        <div id="usageStats" class="stats-container"></div>
+      </div>
+
+      <div class="settings-group">
+        <label>🕐 Recent Snippets</label>
+        <div id="recentSnippets" class="recent-snippets"></div>
+      </div>
+
+      <div class="settings-group">
+        <label>⌨️ Keyboard Shortcuts</label>
+        <div class="shortcuts-list">
+          <div class="shortcut-item"><kbd>Ctrl</kbd> + <kbd>P</kbd> - Add placeholder</div>
+          <div class="shortcut-item"><kbd>Ctrl</kbd> + <kbd>B</kbd> - Bold text</div>
+          <div class="shortcut-item"><kbd>Ctrl</kbd> + <kbd>I</kbd> - Italic text</div>
+          <div class="shortcut-item"><kbd>Ctrl</kbd> + <kbd>U</kbd> - Underline</div>
+          <div class="shortcut-item"><kbd>Enter</kbd> - Next field / Copy (last field)</div>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <label>📋 Quick Templates</label>
+        <div class="templates-grid">
+          <button class="template-btn" data-template="email">📧 Email</button>
+          <button class="template-btn" data-template="code">💻 Code Block</button>
+          <button class="template-btn" data-template="meeting">📅 Meeting</button>
+          <button class="template-btn" data-template="todo">✅ Todo List</button>
+          <button class="template-btn" data-template="greeting">👋 Greeting</button>
+          <button class="template-btn" data-template="signature">✍️ Signature</button>
+        </div>
+      </div>
+
+      <div class="settings-group">
+        <label>🎨 Theme</label>
+        <select id="themeSelect" class="settings-select">
+          <option value="light">☀️ Light</option>
+          <option value="dark">🌙 Dark</option>
+          <option value="auto">🔄 Auto (System)</option>
+        </select>
+      </div>
+
+      <div class="settings-group">
+        <label>💾 Data Management</label>
+        <div class="settings-actions">
+          <button id="exportBtn" class="btn-secondary">📤 Export</button>
+          <button id="importBtn" class="btn-secondary">📥 Import</button>
+          <button id="clearStatsBtn" class="btn-secondary">🗑️ Clear Stats</button>
+          <input type="file" id="importFile" accept=".json" style="display: none;">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button id="closeSettingsBtn" class="btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

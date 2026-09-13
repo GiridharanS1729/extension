@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Fast Range Downloader</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <h1>Fast Downloader</h1>
+
+    <label>File URL</label>
+    <input id="url" type="url" placeholder="https://example.com/file.bin">
+
+    <div class="row">
+      <label for="threads">Connections</label>
+      <select id="threads">
+        <option>1</option><option>2</option><option>4</option>
+        <option selected>8</option><option>12</option><option>16</option>
+        <option>24</option><option>32</option>
+      </select>
+    </div>
+
+    <button id="download">Download</button>
+
+    <section id="status" hidden>
+      <div id="filename"></div>
+      <div class="progress"><div id="bar"></div></div>
+      <div class="stats">
+        <span id="percent">0%</span>
+        <span id="speed">0 B/s</span>
+        <span id="eta">--</span>
+      </div>
+      <pre id="message"></pre>
+    </section>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

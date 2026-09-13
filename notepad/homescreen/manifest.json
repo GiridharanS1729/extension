@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Giridharan New Tab",
+  "version": "1.0.0",
+  "description": "A personalized Chrome New Tab dashboard with a live clock, profile card and dynamic most-visited shortcuts.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": [
+    "storage",
+    "topSites"
+  ]
+}

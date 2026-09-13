@@ -1,0 +1,319 @@
+/* ChatMeter - content.css
+ * Small floating pill that expands into a compact stats panel.
+ * The pill can be dragged anywhere on screen (position persists);
+ * a plain click on it toggles the panel instead.
+ */
+
+#chatmeter-root {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647; /* max out to stay above host page UI */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+#chatmeter-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #202123;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: grab;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  touch-action: none;
+  user-select: none;
+}
+
+#chatmeter-toggle:active {
+  cursor: grabbing;
+}
+
+#chatmeter-toggle:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+#chatmeter-panel {
+  display: none;
+  width: 270px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: #ffffff;
+  color: #1a1a1a;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  padding: 12px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+#chatmeter-panel.chatmeter-visible {
+  display: block;
+}
+
+#chatmeter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 6px;
+}
+
+#chatmeter-title {
+  font-size: 13px;
+  font-weight: 700;
+  flex: 1;
+}
+
+#chatmeter-site {
+  font-size: 11px;
+  color: #666;
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+#chatmeter-settings-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 2px 4px;
+  color: #666;
+  border-radius: 6px;
+}
+
+#chatmeter-settings-btn:hover {
+  background: #f0f0f0;
+  color: #111;
+}
+
+/* --- Settings drawer --- */
+
+#chatmeter-settings-panel {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
+  background: #fafafa;
+}
+
+.chatmeter-hidden {
+  display: none !important;
+}
+
+.chatmeter-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.chatmeter-setting-row label {
+  font-size: 11px;
+  color: #444;
+}
+
+.chatmeter-setting-row input[type="number"] {
+  width: 80px;
+  font-size: 11px;
+  padding: 3px 5px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+#chatmeter-settings-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+#chatmeter-settings-save,
+#chatmeter-settings-reset {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+#chatmeter-settings-save {
+  background: #10a37f;
+  border-color: #10a37f;
+  color: #fff;
+}
+
+#chatmeter-settings-save:hover {
+  background: #0d8c6c;
+}
+
+#chatmeter-settings-reset:hover {
+  background: #f0f0f0;
+}
+
+#chatmeter-settings-note {
+  margin-top: 6px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #888;
+}
+
+/* --- Buttons row --- */
+
+#chatmeter-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+#chatmeter-analyse,
+#chatmeter-analyse-all {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+#chatmeter-analyse {
+  border: none;
+  background: #10a37f;
+  color: #fff;
+}
+
+#chatmeter-analyse:hover {
+  background: #0d8c6c;
+}
+
+#chatmeter-analyse-all {
+  border: 1px solid #10a37f;
+  background: #ffffff;
+  color: #0d8c6c;
+}
+
+#chatmeter-analyse-all:hover {
+  background: #eafaf5;
+}
+
+#chatmeter-analyse:disabled,
+#chatmeter-analyse-all:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+#chatmeter-progress {
+  font-size: 11px;
+  color: #10a37f;
+  min-height: 14px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+/* --- Stats --- */
+
+#chatmeter-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chatmeter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.chatmeter-row-strong .chatmeter-label,
+.chatmeter-row-strong .chatmeter-value {
+  font-weight: 800;
+}
+
+.chatmeter-label {
+  color: #555;
+}
+
+.chatmeter-value {
+  font-weight: 700;
+  color: #111;
+  text-align: right;
+}
+
+#chatmeter-bar-wrap {
+  margin: 4px 0 2px;
+}
+
+#chatmeter-bar-track {
+  width: 100%;
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#chatmeter-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: #10a37f;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+#chatmeter-bar-fill.chatmeter-bar-warn {
+  background: #e8a33d;
+}
+
+#chatmeter-bar-fill.chatmeter-bar-danger {
+  background: #e05252;
+}
+
+#chatmeter-bar-label {
+  font-size: 10px;
+  color: #777;
+  margin-top: 3px;
+}
+
+#chatmeter-copy {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #333;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+#chatmeter-copy:hover {
+  background: #f5f5f5;
+}
+
+#chatmeter-note {
+  margin-top: 8px;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #888;
+}

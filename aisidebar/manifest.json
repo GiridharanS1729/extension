@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Developer AI Sidebar",
+  "version": "1.0.0",
+  "description": "A private, provider-agnostic AI workspace on every website.",
+  "permissions": ["activeTab", "storage", "contextMenus", "scripting", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background-loader.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-loader.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "toggle-sidebar": {
+      "suggested_key": { "default": "Ctrl+Shift+A", "mac": "Command+Shift+A" },
+      "description": "Toggle Developer AI Sidebar"
+    }
+  },
+  "action": { "default_title": "Developer AI Sidebar" },
+  "web_accessible_resources": [
+    {
+      "matches": ["<all_urls>"],
+      "resources": ["dist/assets/*"]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+    "id": "rephrase",
+    "system": "Rewrite text. Output only rewritten content. No greetings. No explanations.",
+    "template": "Tone: {{tone}}\nMax words: {{maxWords}}\n\n{{input}}",
+    "defaults": {
+        "tone": "neutral",
+        "maxWords": 50
+    }
+}

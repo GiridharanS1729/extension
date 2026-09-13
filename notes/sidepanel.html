@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Notebook</title>
+<link rel="stylesheet" href="sidepanel.css" />
+</head>
+<body>
+  <div class="sheet">
+    <header class="bar">
+      <button id="logoBtn" class="mark" title="Toggle Markdown preview" aria-label="Toggle Markdown preview" aria-pressed="false">G</button>
+      <input id="title" class="title" spellcheck="false" />
+
+      <div class="iconGroup">
+        <button id="themeBtn" class="iconBtn" title="Toggle theme" aria-label="Toggle theme">
+          <svg id="themeIcon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/>
+          </svg>
+        </button>
+
+        <button id="saveBtn" class="iconBtn" title="Save current session to history" aria-label="Save to history">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/>
+            <path d="M17 21v-8H7v8"/>
+            <path d="M7 3v5h8"/>
+          </svg>
+        </button>
+
+        <button id="newBtn" class="iconBtn" title="Save and start a new file" aria-label="Save and start a new file">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14"/>
+            <path d="M5 12h14"/>
+          </svg>
+        </button>
+
+        <button id="historyBtn" class="iconBtn" title="Saved files" aria-label="Show saved files">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <line x1="12" y1="11" x2="12" y2="16.5"/>
+            <circle cx="12" cy="7.7" r="0.9" fill="currentColor" stroke="none"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <textarea id="editor" class="editor" placeholder="Start writing…" spellcheck="true"></textarea>
+    <div id="preview" class="preview hidden" contenteditable="true" spellcheck="true"></div>
+
+    <footer class="foot">
+      <span id="wordcount">0 words</span>
+      <span id="saveHint" class="saveHint"></span>
+    </footer>
+
+    <!-- History / saved-files panel -->
+    <div id="historyOverlay" class="historyOverlay hidden">
+      <aside id="historyPanel" class="historyPanel">
+        <div class="historyPanelHead">
+          <span>Saved files</span>
+          <button id="closeHistory" class="closeBtn" aria-label="Close">✕</button>
+        </div>
+        <ul id="historyList" class="historyList">
+          <!-- rows injected by sidepanel.js -->
+        </ul>
+        <p id="historyEmpty" class="historyEmpty hidden">No saved files yet — hit the save icon to create your first one.</p>
+      </aside>
+    </div>
+  </div>
+
+  <script src="sidepanel.js" type="module"></script>
+</body>
+</html>
