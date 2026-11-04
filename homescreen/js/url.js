@@ -22,13 +22,13 @@ export function normalizeAndValidateUrl(input) {
     throw new Error("Enter a valid URL.");
   }
 
-  if (url.protocol !== "http:" && url.protocol !== "https:") {
-    throw new Error("Only http and https links are allowed.");
-  }
+  // if (url.protocol !== "http:" && url.protocol !== "https:") {
+  //   throw new Error("Only http and https links are allowed.");
+  // }
 
-  if (!url.hostname || !url.hostname.includes(".")) {
-    throw new Error("Enter a valid website address.");
-  }
+  // if (!url.hostname || !url.hostname.includes(".")) {
+  //   throw new Error("Enter a valid website address.");
+  // }
 
   return url.toString();
 }
