@@ -22,8 +22,13 @@ function createId() {
 
 function getFocusable(container) {
   return Array.from(
-    container.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
+    container.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')
   ).filter((el) => el.offsetParent !== null || el === document.activeElement);
+}
+
+// Older shortcuts only have `url`; newer ones keep every URL in `urls`.
+function getUrls(shortcut) {
+  return Array.isArray(shortcut.urls) && shortcut.urls.length ? shortcut.urls : [shortcut.url];
 }
 
 function sitesToShortcuts(sites, limit) {
@@ -43,8 +48,29 @@ function createShortcutCard(shortcut, onEditRequest) {
   const open = document.createElement("a");
   open.className = "shortcut-open";
   open.href = shortcut.url;
-  open.setAttribute("aria-label", `${shortcut.title} – ${shortcut.url}`);
-  open.title = `${shortcut.title}\n${shortcut.url}`;
+  const urls = getUrls(shortcut);
+  open.setAttribute("aria-label", `${shortcut.title} – ${urls.join(", ")}`);
+  open.title = `${shortcut.title}\n${urls.join("\n")}`;
+
+  // Multiple URLs need the tabs API, and so do file:// links (Chrome blocks
+  // <a href="file://..."> from extension pages). First URL takes the current
+  // tab, the rest open as background tabs.
+  if ((urls.length > 1 || urls.some((u) => u.startsWith("file:"))) && globalThis.chrome?.tabs) {
+    const openAll = (e) => {
+      if (e.type === "auxclick" && e.button !== 1) return;
+      e.preventDefault();
+      const allNewTabs = e.type === "auxclick" || e.ctrlKey || e.metaKey;
+      urls.forEach((url, i) => {
+        if (i === 0 && !allNewTabs) {
+          chrome.tabs.update({ url });
+        } else {
+          chrome.tabs.create({ url, active: false });
+        }
+      });
+    };
+    open.addEventListener("click", openAll);
+    open.addEventListener("auxclick", openAll);
+  }
 
   const circle = document.createElement("span");
   circle.className = "shortcut-circle";
@@ -175,7 +201,7 @@ export async function initShortcuts(refs) {
     editingId = shortcut.id;
     titleEl.textContent = "Edit shortcut";
     nameInput.value = shortcut.title;
-    urlInput.value = shortcut.url;
+    urlInput.value = getUrls(shortcut).join("\n");
     urlError.hidden = true;
     deleteBtn.hidden = false;
     openDialog();
@@ -184,9 +210,10 @@ export async function initShortcuts(refs) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let normalized;
+    const lines = urlInput.value.split("\n").map((l) => l.trim()).filter(Boolean);
+    let urls;
     try {
-      normalized = normalizeAndValidateUrl(urlInput.value);
+      urls = (lines.length ? lines : [""]).map(normalizeAndValidateUrl);
     } catch (err) {
       urlError.textContent = err.message;
       urlError.hidden = false;
@@ -195,12 +222,13 @@ export async function initShortcuts(refs) {
     }
     urlError.hidden = true;
 
-    const title = nameInput.value.trim() || getHostname(normalized);
+    const title = nameInput.value.trim() || getHostname(urls[0]);
+    const fields = { title, url: urls[0], urls };
 
     if (editingId) {
-      shortcuts = shortcuts.map((s) => (s.id === editingId ? { ...s, title, url: normalized } : s));
+      shortcuts = shortcuts.map((s) => (s.id === editingId ? { ...s, ...fields } : s));
     } else {
-      shortcuts = [...shortcuts, { id: createId(), title, url: normalized, createdAt: Date.now() }];
+      shortcuts = [...shortcuts, { id: createId(), ...fields, createdAt: Date.now() }];
     }
 
     await saveShortcuts(shortcuts);
